@@ -65,6 +65,10 @@ describe RuboCop::Cop::Style::TernaryParentheses, :config do
       it_behaves_like 'code with offense',
                       'foo = bar && (baz || bar) ? a : b',
                       'foo = (bar && (baz || bar)) ? a : b'
+
+      it_behaves_like 'code with offense',
+                      'foo = (bar) || (baz) ? a : b',
+                      'foo = ((bar) || (baz)) ? a : b'
     end
 
     context 'with an assignment condition' do
@@ -111,6 +115,9 @@ describe RuboCop::Cop::Style::TernaryParentheses, :config do
 
       it_behaves_like 'code without offense',
                       'foo = bar && (baz || bar) ? a : b'
+
+      it_behaves_like 'code without offense',
+                      'foo = (bar) || (baz) ? a : b'
     end
 
     context 'with an assignment condition' do
