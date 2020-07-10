@@ -3976,6 +3976,15 @@ Style/RandomWithOffset:
   Enabled: true
   VersionAdded: '0.52'
 
+Style/RedundantArguments:
+  Description: 'Check for redundant arguments to methods.'
+  Enabled: pending
+  Safe: false
+  VersionAdded: '1.3.2'
+  RedundantArguments:
+    join: ''
+    split: ' '
+
 Style/RedundantAssignment:
   Description: 'Checks for redundant assignment before returning.'
   Enabled: true
