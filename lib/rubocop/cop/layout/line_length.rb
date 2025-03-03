@@ -84,6 +84,21 @@ module RuboCop
           check_for_breakable_dstr(node)
         end
 
+        def on_def(node)
+          if node.endless?
+            source_range = node.source_range
+            return if source_range.last_column < max
+
+            line = source_range.source_line
+            index = source_range.line
+            return if node.source_range.last_column < max
+
+            register_offense(excess_range(nil, line, index - 1), line, index)
+          else
+            check_for_breakable_node(node)
+          end
+        end
+
         def on_potential_breakable_node(node)
           check_for_breakable_node(node)
         end
@@ -91,7 +106,6 @@ module RuboCop
         alias on_hash on_potential_breakable_node
         alias on_send on_potential_breakable_node
         alias on_csend on_potential_breakable_node
-        alias on_def on_potential_breakable_node
 
         def on_new_investigation
           return unless processed_source.raw_source.include?(';')
